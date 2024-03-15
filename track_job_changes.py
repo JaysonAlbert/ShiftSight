@@ -9,7 +9,7 @@ import sys
 
 requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
 
-days_back = 90
+days_back = 365
 com_to_monitor = "易方达"
 
 max_retries = 3
