@@ -9,9 +9,10 @@ import sys
 
 requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
 
-max_retries = 3
+days_back = 90
+com_to_monitor = "易方达"
 
-recent_days = 1
+max_retries = 3
 
 timeout = 3
 
@@ -212,7 +213,7 @@ def is_recent_leave(user):
     now = datetime.now()
 
     # One day before the current time
-    one_day_before = now - timedelta(days=recent_days)
+    one_day_before = now - timedelta(days=days_back)
 
     # Convert to timestamps (assuming you want seconds since the epoch)
     one_day_before_timestamp = int(one_day_before.timestamp()) * 1000
@@ -229,7 +230,7 @@ def main():
     )
     for company in sorted_companies[:30]:
         # Assuming `userId` is an attribute of the `Company` class
-        if company["userId"] == 1700000000699045:
+        if com_to_monitor in company["orgName"]:
             continue
         users = get_user_list(company["userId"])
         for user in users:
@@ -237,7 +238,7 @@ def main():
             if (
                 user["certStatusChangeTimes"] > 2
                 and user["personCertHistoryList"][1]["orgName"]
-                and "汇添富" in user["personCertHistoryList"][1]["orgName"]
+                and com_to_monitor in user["personCertHistoryList"][1]["orgName"]
                 and is_recent_leave(user)
             ):
                 result.append(extract_user_data(user))
