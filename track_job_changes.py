@@ -161,14 +161,20 @@ def get_company_scale_rank():
 def get_company_list():
     all_list = []
     for i in range(10):
-        url = f"https://gs.amac.org.cn/amac-infodisc/api/pof/personOrg?rand=0.2623326662299205&page={i}&size=100"
+        url = f"https://gs.amac.org.cn/amac-infodisc/api/pof/personOrg?rand=0.8364584791368805&page={i}&size=10"
         params = {"orgType": "gmjjglgs", "page": 1}
         cookies = {
-            "Hm_lvt_a0d0f99af80247cfcb96d30732a5c560": "1659423351,1660821735,1661239152",
-            "Hm_lpvt_a0d0f99af80247cfcb96d30732a5c560": "1661475181",
+            "Hm_lvt_a0d0f99af80247cfcb96d30732a5c560": "1710400957",
+            "Hm_lpvt_a0d0f99af80247cfcb96d30732a5c560": "1710404853",
+        }
+        headers = {
+            "Host": "gs.amac.org.cn",
+            "Origin": "https://gs.amac.org.cn",
+            "Sec-Ch-Ua": '"Chromium";v="122", "Not(A:Brand";v="24", "Google Chrome";v="122"',
+            "User-Agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36",
         }
         response = make_request_with_retry(
-            url, method="post", json=params, cookies=cookies
+            url, method="post", json=params, headers=headers, cookies=cookies
         )
         result = response.json()
         list_ = result.get("content", [])
@@ -185,16 +191,23 @@ def get_user_list(user_id):
         if i > maxPages:
             break
 
-        url = f"https://gs.amac.org.cn/amac-infodisc/api/pof/person?rand=0.217725561763898&page={i}&size=100"
+        url = f"https://gs.amac.org.cn/amac-infodisc/api/pof/person?rand=0.8364584791368805&page={i}&size=100"
         params = {"userId": user_id, "page": 1}
         cookies = {
             "Hm_lvt_a0d0f99af80247cfcb96d30732a5c560": "1659423351,1660821735,1661239152",
             "Hm_lpvt_a0d0f99af80247cfcb96d30732a5c560": "1661475181",
         }
+        headers = {
+            "Host": "gs.amac.org.cn",
+            "Origin": "https://gs.amac.org.cn",
+            "Sec-Ch-Ua": '"Chromium";v="122", "Not(A:Brand";v="24", "Google Chrome";v="122"',
+            "User-Agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36",
+        }
         response = make_request_with_retry(
             url,
             "post",
             json=params,
+            headers=headers,
             cookies=cookies,
         )
         try:
