@@ -161,16 +161,23 @@ def get_company_scale_rank():
 def get_company_list():
     all_list = []
     for i in range(10):
-        url = f"https://gs.amac.org.cn/amac-infodisc/api/pof/personOrg?rand=0.8364584791368805&page={i}&size=10"
-        params = {"orgType": "gmjjglgs", "page": 1}
+        url = f"https://gs.amac.org.cn/amac-infodisc/api/pof/personOrg?rand=0.8364584791368805&page={i}&size=20&rand=0.016298248893151346"
+        params = {"orgType": "gmjjglgs", "page": i}
         cookies = {
             "Hm_lvt_a0d0f99af80247cfcb96d30732a5c560": "1710400957",
             "Hm_lpvt_a0d0f99af80247cfcb96d30732a5c560": "1710404853",
         }
         headers = {
+            "Content-Type": "application/json",
             "Host": "gs.amac.org.cn",
             "Origin": "https://gs.amac.org.cn",
-            "Sec-Ch-Ua": '"Chromium";v="122", "Not(A:Brand";v="24", "Google Chrome";v="122"',
+            "Referer": "https://gs.amac.org.cn/amac-infodisc/res/pof/person/personOrgList.html",
+            "Sec-Ch-Ua": '"Google Chrome";v="123", "Not:A-Brand";v="8", "Chromium";v="123"',
+            "Sec-Ch-Ua-Mobile": "?0",
+            "Sec-Ch-Ua-Platform": "linux",
+            "Sec-Fetch-Mode": "cors",
+            "Sec-Fetch-Site": "same-origin",
+            "X-Requested-With": "XMLHttpRequest",
             "User-Agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36",
         }
         response = make_request_with_retry(
